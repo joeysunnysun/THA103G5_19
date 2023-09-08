@@ -1,4 +1,4 @@
-package com.like.model;
+package com.likes.model;
 
 import java.util.ArrayList;
 import java.util.List;

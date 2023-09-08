@@ -1,4 +1,4 @@
-package com.like.model;
+package com.likes.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import com.user.util.Util;
+import com.project.util.Util;
 
 public class LikesDAOImpl implements LikesDAO {
 //	CRUD SQL Statement

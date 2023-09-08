@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import com.user.util.Util;
+import com.project.util.Util;
 
 public class UserDAOImpl implements UserDAO {
 //	CRUD SQL Statement

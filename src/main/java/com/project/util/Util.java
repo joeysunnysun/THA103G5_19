@@ -1,4 +1,4 @@
-package com.user.util;
+package com.project.util;
 
 public class Util {
 //	驅動driver

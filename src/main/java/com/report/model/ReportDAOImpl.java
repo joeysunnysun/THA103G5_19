@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.user.util.Util;
+import com.project.util.Util;
 
 public class ReportDAOImpl implements ReportDAO {
 //	CRUD SQL Statement
