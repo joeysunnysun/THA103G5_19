@@ -34,7 +34,6 @@ public class TestJDBCDAO {
 //		List<UseDiscountVO> list = dao.getAll();
 //		for(UseDiscountVO lists : list) {
 //			System.out.println(lists);
-//			
 //		}
 	}
 }

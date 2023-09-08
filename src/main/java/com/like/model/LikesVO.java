@@ -2,7 +2,7 @@ package com.like.model;
 
 import java.io.Serializable;
 
-public class LikeVO implements Serializable{
+public class LikesVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private Integer likeID;
@@ -36,14 +36,14 @@ public class LikeVO implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public LikeVO(Integer likeID, Integer postID, Integer userID, Integer likeOrNot) {
+	public LikesVO(Integer likeID, Integer postID, Integer userID, Integer likeOrNot) {
 		super();
 		this.likeID = likeID;
 		this.postID = postID;
 		this.userID = userID;
 		this.likeOrNot = likeOrNot;
 	}
-	public LikeVO() {
+	public LikesVO() {
 		super();
 	}
 	@Override

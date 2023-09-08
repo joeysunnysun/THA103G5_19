@@ -1,23 +1,21 @@
-package com.report.model;
+package com.like.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.user.util.Util;
 
-public class ReportDAOImpl implements ReportDAO {
+public class LikesDAOImpl implements LikesDAO {
 //	CRUD SQL Statement
-	private static final String INSERT_STMT = "INSERT INTO report (userID, postID, reportContent, reportStatus) "
-			+ "VALUES (?, ?, ?, ?) ";
-	private static final String GET_ALL_STMT = "SELECT * FROM report ORDER BY reportID ";
-	private static final String GET_ONE_STMT = "SELECT * FROM report WHERE reportID = ? ";
-	private static final String DELETE_STMT = "DELETE FROM report WHERE reportID = ? ";
-	private static final String UPDATE_STMT = "UPDATE report SET userID = ?, postID = ?, reportContent = ?, reportStatus = ? WHERE reportID = ? ";
+	private static final String INSERT_STMT = "INSERT INTO likes (postID, userID, likeOrNot) " + "VALUES (?, ?, ?) ";
+	private static final String GET_ALL_STMT = "SELECT * FROM likes ORDER BY likeID ";
+	private static final String GET_ONE_STMT = "SELECT * FROM likes WHERE likeID = ? ";
+	private static final String DELETE_STMT = "DELETE FROM likes WHERE likeID = ? ";
+	private static final String UPDATE_STMT = "UPDATE likes SET postID = ?, userID = ?, likeOrNot = ? WHERE likeID = ? ";
 
 	static {
 		try {
@@ -28,7 +26,7 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 
 	@Override
-	public void insert(ReportVO reportVO) {
+	public void insert(LikesVO likeVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -37,10 +35,9 @@ public class ReportDAOImpl implements ReportDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, reportVO.getUserID());
-			pstmt.setInt(2, reportVO.getPostID());
-			pstmt.setString(3, reportVO.getReportContent());
-			pstmt.setInt(4, reportVO.getReportStatus());
+			pstmt.setInt(1, likeVO.getPostID());
+			pstmt.setInt(2, likeVO.getUserID());
+			pstmt.setInt(3, likeVO.getLikeOrNot());
 
 			pstmt.executeUpdate();
 
@@ -54,7 +51,7 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 
 	@Override
-	public void update(ReportVO reportVO) {
+	public void update(LikesVO likeVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -63,15 +60,14 @@ public class ReportDAOImpl implements ReportDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
-			pstmt.setInt(1, reportVO.getUserID());
-			pstmt.setInt(2, reportVO.getPostID());
-			pstmt.setString(3, reportVO.getReportContent());
-			pstmt.setInt(4, reportVO.getReportStatus());
-			pstmt.setInt(5, reportVO.getReportID());
+			pstmt.setInt(1, likeVO.getLikeID());
+			pstmt.setInt(2, likeVO.getUserID());
+			pstmt.setInt(3, likeVO.getLikeOrNot());
+			pstmt.setInt(4, likeVO.getLikeID());
 
 			pstmt.executeUpdate();
 
-			System.out.println("date updated");
+			System.out.println("data updated");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,7 +77,7 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 
 	@Override
-	public void delete(Integer reportID) {
+	public void delete(Integer likeID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -90,7 +86,7 @@ public class ReportDAOImpl implements ReportDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(DELETE_STMT);
 
-			pstmt.setInt(1, reportID);
+			pstmt.setInt(1, likeID);
 
 			pstmt.executeUpdate();
 
@@ -104,9 +100,9 @@ public class ReportDAOImpl implements ReportDAO {
 	}
 
 	@Override
-	public ReportVO findeByPrimaryKey(Integer reportID) {
+	public LikesVO findByPrimaryKey(Integer likeID) {
 
-		ReportVO report = null;
+		LikesVO like = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -116,31 +112,28 @@ public class ReportDAOImpl implements ReportDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, reportID);
+			pstmt.setInt(1, likeID);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				report = new ReportVO();
-				report.setReportID(rs.getInt("reportID"));
-				report.setUserID(rs.getInt("userID"));
-				report.setPostID(rs.getInt("postID"));
-				report.setReportContent(rs.getString("reportContent"));
-				report.setReportStatus(rs.getInt("reportStatus"));
-			}
 
+			while (rs.next()) {
+				like = new LikesVO();
+				like.setLikeID(rs.getInt("likeID"));
+				like.setPostID(rs.getInt("postID"));
+				like.setUserID(rs.getInt("userID"));
+				like.setLikeOrNot(rs.getInt("likeOrNot"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeResources(con, pstmt, rs);
 		}
-		return report;
+		return like;
 	}
 
 	@Override
-	public List<ReportVO> getAll() {
-		List<ReportVO> list = new ArrayList<>();
-		ReportVO report = null;
-
+	public List<LikesVO> getAll() {
+		List<LikesVO> list = new ArrayList<>();
+		LikesVO like = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -153,16 +146,13 @@ public class ReportDAOImpl implements ReportDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				report = new ReportVO();
-				report.setReportID(rs.getInt("reportID"));
-				report.setUserID(rs.getInt("userID"));
-				report.setPostID(rs.getInt("postID"));
-				report.setReportContent(rs.getString("reportContent"));
-				report.setReportStatus(rs.getInt("reportStatus"));
-				list.add(report);
+				like = new LikesVO();
+				like.setLikeID(rs.getInt("likeID"));
+				like.setPostID(rs.getInt("postID"));
+				like.setUserID(rs.getInt("userID"));
+				like.setLikeOrNot(rs.getInt("likeOrNot"));
+				list.add(like);
 			}
-
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
