@@ -1,4 +1,4 @@
-package com.report.model;
+package com.newview.model.report;
 
 import java.io.Serializable;
 

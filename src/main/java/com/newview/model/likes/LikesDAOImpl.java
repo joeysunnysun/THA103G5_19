@@ -1,23 +1,21 @@
-package com.usediscount.model;
+package com.newview.model.likes;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import com.project.util.Util;
+import com.newview.util.Util;
 
-public class UseDiscountDAOImpl implements UseDiscountDAO {
+public class LikesDAOImpl implements LikesDAO {
 //	CRUD SQL Statement
-	private static final String INSERT_STMT = "INSERT INTO useDiscount (discountNO, userID, ditUsed) "
-			+ "VALUES (?, ?, ?) ";
-	private static final String GET_ALL_STMT = "SELECT * FROM useDiscount ORDER BY useDisID ";
-	private static final String GET_ONE_STMT = "SELECT * FROM useDiscount WHERE useDisID = ? ";
-	private static final String DELETE_STMT = "DELETE FROM useDiscount WHERE useDisID = ? ";
-	private static final String UPDATE_STMT = "UPDATE useDiscount SET discountNO = ?, userID = ?, ditUsed = ? WHERE useDisID = ? ";
+	private static final String INSERT_STMT = "INSERT INTO likes (postID, userID, likeOrNot) " + "VALUES (?, ?, ?) ";
+	private static final String GET_ALL_STMT = "SELECT * FROM likes ORDER BY likeID ";
+	private static final String GET_ONE_STMT = "SELECT * FROM likes WHERE likeID = ? ";
+	private static final String DELETE_STMT = "DELETE FROM likes WHERE likeID = ? ";
+	private static final String UPDATE_STMT = "UPDATE likes SET postID = ?, userID = ?, likeOrNot = ? WHERE likeID = ? ";
 
 	static {
 		try {
@@ -28,7 +26,7 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 	}
 
 	@Override
-	public void insert(UseDiscountVO useDiscountVO) {
+	public void insert(LikesVO likeVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -37,13 +35,13 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, useDiscountVO.getDiscountNO());
-			pstmt.setInt(2, useDiscountVO.getUserID());
-			pstmt.setInt(3, useDiscountVO.getDitUsed());
+			pstmt.setInt(1, likeVO.getPostID());
+			pstmt.setInt(2, likeVO.getUserID());
+			pstmt.setInt(3, likeVO.getLikeOrNot());
 
 			pstmt.executeUpdate();
 
-			System.out.println("date inserted");
+			System.out.println("data inserted");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +51,7 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 	}
 
 	@Override
-	public void update(UseDiscountVO useDiscountVO) {
+	public void update(LikesVO likeVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -62,14 +60,14 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
-			pstmt.setInt(1, useDiscountVO.getDiscountNO());
-			pstmt.setInt(2, useDiscountVO.getUserID());
-			pstmt.setInt(3, useDiscountVO.getDitUsed());
-			pstmt.setInt(4,useDiscountVO.getUseDisID());
+			pstmt.setInt(1, likeVO.getLikeID());
+			pstmt.setInt(2, likeVO.getUserID());
+			pstmt.setInt(3, likeVO.getLikeOrNot());
+			pstmt.setInt(4, likeVO.getLikeID());
 
 			pstmt.executeUpdate();
 
-			System.out.println("date updated");
+			System.out.println("data updated");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,7 +77,7 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 	}
 
 	@Override
-	public void delete(Integer useDisID) {
+	public void delete(Integer likeID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -88,7 +86,7 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(DELETE_STMT);
 
-			pstmt.setInt(1, useDisID);
+			pstmt.setInt(1, likeID);
 
 			pstmt.executeUpdate();
 
@@ -102,9 +100,9 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 	}
 
 	@Override
-	public UseDiscountVO findeByPrimaryKey(Integer useDisID) {
+	public LikesVO findByPrimaryKey(Integer likeID) {
 
-		UseDiscountVO use = null;
+		LikesVO like = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -114,30 +112,28 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, useDisID);
+			pstmt.setInt(1, likeID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				use = new UseDiscountVO();
-				use.setUseDisID(rs.getInt("useDisID"));
-				use.setDiscountNO(rs.getInt("discountNO"));
-				use.setUserID(rs.getInt("userID"));
-				use.setDitUsed(rs.getInt("ditUsed"));
+				like = new LikesVO();
+				like.setLikeID(rs.getInt("likeID"));
+				like.setPostID(rs.getInt("postID"));
+				like.setUserID(rs.getInt("userID"));
+				like.setLikeOrNot(rs.getInt("likeOrNot"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeResources(con, pstmt, rs);
 		}
-
-		return use;
+		return like;
 	}
 
 	@Override
-	public List<UseDiscountVO> getAll() {
-		List<UseDiscountVO> list = new ArrayList<>();
-		UseDiscountVO use = null;
-		
+	public List<LikesVO> getAll() {
+		List<LikesVO> list = new ArrayList<>();
+		LikesVO like = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -149,15 +145,14 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			while (rs.next()) {
-				use = new UseDiscountVO();
-				use.setUseDisID(rs.getInt("useDisID"));
-				use.setDiscountNO(rs.getInt("discountNO"));
-				use.setUserID(rs.getInt("userID"));
-				use.setDitUsed(rs.getInt("ditUsed"));
-				list.add(use);
+			while(rs.next()) {
+				like = new LikesVO();
+				like.setLikeID(rs.getInt("likeID"));
+				like.setPostID(rs.getInt("postID"));
+				like.setUserID(rs.getInt("userID"));
+				like.setLikeOrNot(rs.getInt("likeOrNot"));
+				list.add(like);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

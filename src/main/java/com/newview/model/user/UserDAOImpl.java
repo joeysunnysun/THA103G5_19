@@ -1,4 +1,4 @@
-package com.user.model;
+package com.newview.model.user;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import com.project.util.Util;
+import com.newview.util.Util;
 
 public class UserDAOImpl implements UserDAO {
 //	CRUD SQL Statement

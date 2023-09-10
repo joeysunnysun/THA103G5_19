@@ -1,4 +1,4 @@
-package com.usediscount.model;
+package com.newview.model.usediscount;
 
 import java.util.*;
 

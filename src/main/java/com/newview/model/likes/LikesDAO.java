@@ -1,4 +1,4 @@
-package com.likes.model;
+package com.newview.model.likes;
 
 import java.util.*;
 

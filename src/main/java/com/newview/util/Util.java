@@ -1,10 +1,10 @@
-package com.project.util;
+package com.newview.util;
 
 public class Util {
 //	驅動driver
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 //	mysql url
-	public static final String URL = "jdbc:mysql://localhost:3306/project?serverTimezone=Asia/Taipei";
+	public static final String URL = "jdbc:mysql://localhost:3306/NewView?serverTimezone=Asia/Taipei";
 //	db account/password
 	public static final String USER = "root";
 	public static final String PASSWORD = "joeejoee";

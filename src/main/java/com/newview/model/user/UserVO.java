@@ -1,4 +1,4 @@
-package com.user.model;
+package com.newview.model.user;
 
 import java.sql.Date;
 
