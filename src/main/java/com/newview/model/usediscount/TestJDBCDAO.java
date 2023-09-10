@@ -16,9 +16,9 @@ public class TestJDBCDAO {
 		
 		// 修改
 		UseDiscountVO use2 = new UseDiscountVO();
+//		use2.setDiscountNO(1);
+//		use2.setUserID(1);
 		use2.setUseDisID(1);
-		use2.setDiscountNO(1);
-		use2.setUserID(1);
 		use2.setDitUsed(0);
 		
 		dao.update(use2);

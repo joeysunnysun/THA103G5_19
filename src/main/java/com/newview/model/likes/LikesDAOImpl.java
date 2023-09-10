@@ -15,7 +15,7 @@ public class LikesDAOImpl implements LikesDAO {
 	private static final String GET_ALL_STMT = "SELECT * FROM likes ORDER BY likeID ";
 	private static final String GET_ONE_STMT = "SELECT * FROM likes WHERE likeID = ? ";
 	private static final String DELETE_STMT = "DELETE FROM likes WHERE likeID = ? ";
-	private static final String UPDATE_STMT = "UPDATE likes SET postID = ?, userID = ?, likeOrNot = ? WHERE likeID = ? ";
+	private static final String UPDATE_STMT = "UPDATE likes SET likeOrNot = ? WHERE likeID = ? ";
 
 	static {
 		try {
@@ -60,10 +60,10 @@ public class LikesDAOImpl implements LikesDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
-			pstmt.setInt(1, likeVO.getLikeID());
-			pstmt.setInt(2, likeVO.getUserID());
-			pstmt.setInt(3, likeVO.getLikeOrNot());
-			pstmt.setInt(4, likeVO.getLikeID());
+//			pstmt.setInt(1, likeVO.getLikeID());
+//			pstmt.setInt(2, likeVO.getUserID());
+			pstmt.setInt(1, likeVO.getLikeOrNot());
+			pstmt.setInt(2, likeVO.getLikeID());
 
 			pstmt.executeUpdate();
 

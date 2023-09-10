@@ -17,7 +17,7 @@ public class ReportDAOImpl implements ReportDAO {
 	private static final String GET_ALL_STMT = "SELECT * FROM report ORDER BY reportID ";
 	private static final String GET_ONE_STMT = "SELECT * FROM report WHERE reportID = ? ";
 	private static final String DELETE_STMT = "DELETE FROM report WHERE reportID = ? ";
-	private static final String UPDATE_STMT = "UPDATE report SET userID = ?, postID = ?, reportContent = ?, reportStatus = ? WHERE reportID = ? ";
+	private static final String UPDATE_STMT = "UPDATE report SET reportContent = ?, reportStatus = ? WHERE reportID = ? ";
 
 	static {
 		try {
@@ -63,11 +63,11 @@ public class ReportDAOImpl implements ReportDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
-			pstmt.setInt(1, reportVO.getUserID());
-			pstmt.setInt(2, reportVO.getPostID());
-			pstmt.setString(3, reportVO.getReportContent());
-			pstmt.setInt(4, reportVO.getReportStatus());
-			pstmt.setInt(5, reportVO.getReportID());
+//			pstmt.setInt(1, reportVO.getUserID());
+//			pstmt.setInt(2, reportVO.getPostID());
+			pstmt.setString(1, reportVO.getReportContent());
+			pstmt.setInt(2, reportVO.getReportStatus());
+			pstmt.setInt(3, reportVO.getReportID());
 
 			pstmt.executeUpdate();
 

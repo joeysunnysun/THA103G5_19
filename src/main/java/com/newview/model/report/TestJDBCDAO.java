@@ -7,19 +7,19 @@ public class TestJDBCDAO {
 		ReportDAO dao = new ReportDAOImpl();
 
 		// 新增
-		ReportVO report1 = new ReportVO();
-		report1.setUserID(1);
-		report1.setPostID(1);
-		report1.setReportContent("講話很糟糕");
-		report1.setReportStatus(0);
-		
-		dao.insert(report1);
+//		ReportVO report1 = new ReportVO();
+//		report1.setUserID(1);
+//		report1.setPostID(1);
+//		report1.setReportContent("講話很糟糕");
+//		report1.setReportStatus(0);
+//		
+//		dao.insert(report1);
 
 		// 修改
 		ReportVO report2 = new ReportVO();
 		report2.setReportID(1);
-		report2.setUserID(1);
-		report2.setPostID(1);
+//		report2.setUserID(1);
+//		report2.setPostID(1);
 		report2.setReportContent("講話很糟糕");
 		report2.setReportStatus(0);
 		

@@ -17,7 +17,7 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 	private static final String GET_ALL_STMT = "SELECT * FROM useDiscount ORDER BY useDisID ";
 	private static final String GET_ONE_STMT = "SELECT * FROM useDiscount WHERE useDisID = ? ";
 	private static final String DELETE_STMT = "DELETE FROM useDiscount WHERE useDisID = ? ";
-	private static final String UPDATE_STMT = "UPDATE useDiscount SET discountNO = ?, userID = ?, ditUsed = ? WHERE useDisID = ? ";
+	private static final String UPDATE_STMT = "UPDATE useDiscount SET ditUsed = ? WHERE useDisID = ? ";
 
 	static {
 		try {
@@ -62,10 +62,10 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
-			pstmt.setInt(1, useDiscountVO.getDiscountNO());
-			pstmt.setInt(2, useDiscountVO.getUserID());
-			pstmt.setInt(3, useDiscountVO.getDitUsed());
-			pstmt.setInt(4,useDiscountVO.getUseDisID());
+//			pstmt.setInt(1, useDiscountVO.getDiscountNO());
+//			pstmt.setInt(2, useDiscountVO.getUserID());
+			pstmt.setInt(1, useDiscountVO.getDitUsed());
+			pstmt.setInt(2, useDiscountVO.getUseDisID());
 
 			pstmt.executeUpdate();
 
@@ -137,7 +137,7 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 	public List<UseDiscountVO> getAll() {
 		List<UseDiscountVO> list = new ArrayList<>();
 		UseDiscountVO use = null;
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -146,9 +146,9 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			System.out.println("Connected...");
 			pstmt = con.prepareStatement(GET_ALL_STMT);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				use = new UseDiscountVO();
 				use.setUseDisID(rs.getInt("useDisID"));
@@ -157,7 +157,7 @@ public class UseDiscountDAOImpl implements UseDiscountDAO {
 				use.setDitUsed(rs.getInt("ditUsed"));
 				list.add(use);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -17,8 +17,6 @@ public class TestJDBCDAO {
 		// 修改
 		LikesVO like2 = new LikesVO();
 		like2.setLikeID(1);
-		like2.setPostID(1);
-		like2.setUserID(1);
 		like2.setLikeOrNot(1);
 		
 		dao.update(like2);
