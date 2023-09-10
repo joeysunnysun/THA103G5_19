@@ -46,7 +46,7 @@ public class LikesDAOImpl implements LikesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			closeResources(con, pstmt, null);
+			Util.closeResources(con, pstmt, null);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class LikesDAOImpl implements LikesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			closeResources(con, pstmt, null);
+			Util.closeResources(con, pstmt, null);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class LikesDAOImpl implements LikesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			closeResources(con, pstmt, null);
+			Util.closeResources(con, pstmt, null);
 		}
 	}
 
@@ -125,7 +125,7 @@ public class LikesDAOImpl implements LikesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			closeResources(con, pstmt, rs);
+			Util.closeResources(con, pstmt, rs);
 		}
 		return like;
 	}
@@ -156,32 +156,8 @@ public class LikesDAOImpl implements LikesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			closeResources(con, pstmt, rs);
+			Util.closeResources(con, pstmt, rs);
 		}
 		return list;
-	}
-
-	private void closeResources(Connection con, PreparedStatement pstmt, ResultSet rs) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
 	}
 }

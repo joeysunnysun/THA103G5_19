@@ -7,17 +7,17 @@ public class TestJDBCDAO {
 		LikesDAO dao = new LikesDAOImpl();
 
 		// 新增
-		LikesVO like1 = new LikesVO();
-		like1.setPostID(1);
-		like1.setUserID(1);
-		like1.setLikeOrNot(1);
-		
-		dao.insert(like1);
+//		LikesVO like1 = new LikesVO();
+//		like1.setPostID(1);
+//		like1.setUserID(1);
+//		like1.setLikeOrNot(1);
+//		
+//		dao.insert(like1);
 
 		// 修改
 		LikesVO like2 = new LikesVO();
 		like2.setLikeID(1);
-		like2.setLikeOrNot(1);
+		like2.setLikeOrNot(0);
 		
 		dao.update(like2);
 
